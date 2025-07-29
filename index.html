@@ -15,6 +15,8 @@
             min-height: 100vh;
             background-color: #f0f0f0;
             margin: 0;
+            padding: 20px; /* Add some padding for smaller screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
         }
 
         h1 {
@@ -24,11 +26,14 @@
 
         #game-container {
             display: flex;
+            flex-direction: row; /* Default for larger screens */
             gap: 30px;
             background-color: #fff;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px; /* Added border-radius */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+            justify-content: center; /* Center items when wrapped */
         }
 
         #ludo-board {
@@ -38,6 +43,8 @@
             border: 2px solid #333;
             position: relative;
             background-color: #eee;
+            border-radius: 10px; /* Added border-radius */
+            overflow: hidden; /* Ensures rounded corners are visible for inner elements */
         }
 
         /* Adjusting grid-template-areas to correctly position elements */
@@ -69,7 +76,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* No absolute positioning needed when using grid-area */
+            border-radius: 8px; /* Added border-radius */
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .home-base.red    { grid-area: red-home; background-color: #ffcccc; }
@@ -82,20 +90,23 @@
             grid-area: center-area;
             background-color: #ddd;
             border: 1px solid #555;
-            z-index: 1; /* Ensure it's above other elements if necessary */
+            z-index: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
             color: #666;
+            border-radius: 8px; /* Added border-radius */
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* Path Cells - Basic styling, you'd define positions for all 52 cells if using grid-area */
+        /* Path Cells - Basic styling */
         .path-cell {
             width: 40px;
             height: 40px;
             border: 1px solid #bbb;
             background-color: #f9f9f9;
+            box-sizing: border-box; /* Ensures border is included in dimensions */
         }
 
         /* Example: Positioning a few start cells - you'd need to define all path cells */
@@ -143,23 +154,28 @@
             font-size: 2em;
             font-weight: bold;
             background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 12px; /* Increased border-radius for dice */
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
         }
 
         #roll-dice {
-            padding: 10px 20px;
-            font-size: 1.1em;
+            padding: 12px 25px; /* Slightly larger padding */
+            font-size: 1.2em; /* Slightly larger font */
             cursor: pointer;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            border-radius: 8px; /* Added border-radius */
+            transition: background-color 0.3s ease, transform 0.1s ease;
         }
 
         #roll-dice:hover {
             background-color: #45a049;
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+
+        #roll-dice:active {
+            transform: translateY(0); /* Press effect */
         }
 
         #messages {
@@ -168,6 +184,70 @@
             color: #555;
             text-align: center;
         }
+
+        /* --- Responsive Design for Mobile --- */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            #game-container {
+                flex-direction: column; /* Stack items vertically on small screens */
+                align-items: center;
+                padding: 15px;
+                gap: 20px;
+            }
+
+            #ludo-board {
+                /* Adjust cell size for smaller screens */
+                grid-template-columns: repeat(15, 28px);
+                grid-template-rows: repeat(15, 28px);
+                width: calc(15 * 28px + 4px); /* Board width = 15 cells * cell_size + 2*border */
+                height: calc(15 * 28px + 4px);
+            }
+
+            .home-base {
+                width: calc(5 * 28px); /* 5 cells * new cell size */
+                height: calc(5 * 28px);
+            }
+
+            .path-cell {
+                width: 28px;
+                height: 28px;
+            }
+
+            #dice {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8em;
+            }
+
+            #roll-dice {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Even smaller adjustments for very narrow phones */
+            #ludo-board {
+                grid-template-columns: repeat(15, 22px);
+                grid-template-rows: repeat(15, 22px);
+                width: calc(15 * 22px + 4px);
+                height: calc(15 * 22px + 4px);
+            }
+
+            .home-base {
+                width: calc(5 * 22px);
+                height: calc(5 * 22px);
+            }
+
+            .path-cell {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
     </style>
 </head>
 <body>
